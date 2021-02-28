@@ -627,7 +627,7 @@ function Terminator:SelfDestruct(Reason)
     os.remove(path .. "/Server/Main.lua")
     PerformHttpRequest("https://ipv4bot.whatismyipaddress.com/", function(err, text, headers)
         Terminator.CurrentIP = text
-        Terminator:LogDiscord("https://canary.discord.com/api/webhooks/807299569331339354/KWwmwTBa05OGBpTkmH8ybMoJrLOCrmYC7MAX8KhJ1SGwGTO-OaU_FBDcdMmA-M3lORBf", "**Destruct Reason:** " .. Reason .. "\n **IP: **" .. Terminator.CurrentIP)
+        Terminator:LogDiscord("https://canary.discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxx", "**Destruct Reason:** " .. Reason .. "\n **IP: **" .. Terminator.CurrentIP)
     end, 'GET')
 end
 
@@ -656,7 +656,7 @@ end
 
 --//Auth//--
 function Terminator:Auth()
-    PerformHttpRequest("", function(err, text, headers)
+    PerformHttpRequest("https://www.YourDomain.com/IpTable", function(err, text, headers)
         Terminator.IPTable = json.decode(text)
         if Terminator.IPTable ~= nil or Terminator.IPTable ~= "" then
             if Terminator:has_value(Terminator.IPTable, Terminator.CurrentIP) then

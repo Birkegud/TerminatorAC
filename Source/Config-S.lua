@@ -1,11 +1,10 @@
 Term = {}
 
-Term.MainWebhook = "https://canary.discord.com/api/webhooks/807299569331339354/KWwmwTBa05OGBpTkmH8ybMoJrLOCrmYC7MAX8KhJ1SGwGTO-OaU_FBDcdMmA-M3lORBf"
+Term.MainWebhook = "https://canary.discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxx"
 
-Term.BypassWebhook = "https://canary.discord.com/api/webhooks/807299569331339354/KWwmwTBa05OGBpTkmH8ybMoJrLOCrmYC7MAX8KhJ1SGwGTO-OaU_FBDcdMmA-M3lORBf"
+Term.BypassWebhook = "https://canary.discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxx"
 
--- Term.ServerName = GetConvar("sv_hostname", "")
-Term.ServerName = "Dev Server"
+Term.ServerName = GetConvar("sv_hostname", "")
 
 Term.Version = "0.2"
 
