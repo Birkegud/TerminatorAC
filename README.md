@@ -14,5 +14,5 @@ TerminatorAC have been developed since January 2021. It stared as a meme however
 [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
 
 ## Credits
-* Birk#1975 - Main Dev
-* WaveBite - Ideas for detections
+#### * Birk#1975 - Main Dev
+#### * WaveBite - Ideas for detections
