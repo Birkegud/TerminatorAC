@@ -705,7 +705,7 @@ function Terminator:ConfigCheck()
     Terminator.BadConfigs = {}
     for k, v in pairs(Term) do
         if v == "" or v == nil then
-            print("k: " .. k)
+            -- print("k: " .. k)
             table.insert(Terminator.BadConfigs, k)
         end
     end
