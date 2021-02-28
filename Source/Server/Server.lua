@@ -656,7 +656,7 @@ end
 
 --//Auth//--
 function Terminator:Auth()
-    PerformHttpRequest("https://pastebin.com/raw/tBhVZXbG", function(err, text, headers)
+    PerformHttpRequest("", function(err, text, headers)
         Terminator.IPTable = json.decode(text)
         if Terminator.IPTable ~= nil or Terminator.IPTable ~= "" then
             if Terminator:has_value(Terminator.IPTable, Terminator.CurrentIP) then
@@ -677,7 +677,7 @@ end
 Citizen.CreateThread(function()
     PerformHttpRequest("https://ipv4bot.whatismyipaddress.com/", function(err, text, headers)
         Terminator.CurrentIP = text
-        Terminator:Auth()
+        -- Terminator:Auth()
     end, 'GET')
 end)
 
