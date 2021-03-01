@@ -5,7 +5,8 @@ TerminatorAC have been developed since January 2021. It stared as a meme however
 ### Todo
 * Usage and Installation Guide (Next update SOON&trade;)
 * Auto Update (Next update SOON&trade;)
-* Better Config
+* Major Config Update
+* Better Standard Config
 * Clean/Optimize the code
 
 ### License
