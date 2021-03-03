@@ -4,11 +4,10 @@ TerminatorAC have been developed since January 2021. It stared as a meme however
 
 ### Todo
 * Usage and Installation Guide (Next update SOON&trade;)
-* Auto Update (Next update SOON&trade;)
 * Major Config Update
 * Better Standard Config
 * Better Detentions
-* Clean/Optimize the code
+* Recode/Optimize the code
 
 ### License
 [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
