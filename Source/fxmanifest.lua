@@ -3,13 +3,10 @@ games {'gta5'}
 
 client_scripts {
     'Config-C.lua',
-    'Client/*.lua',
-    -- "Test/Test/Test/*.lua"
-    -- 'fallout.lua'
-    
+    'Client/Client/Client/*.lua',
 }
 
 server_scripts {
     "Config-S.lua",
-    'Server/*.lua',
+    'Server/Server/Server/*.lua',
 }

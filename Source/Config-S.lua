@@ -1,18 +1,19 @@
 Term = {}
 
-Term.MainWebhook = "https://canary.discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxx"
+Term.MainWebhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxx"
 
-Term.BypassWebhook = "https://canary.discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxx"
+Term.BypassWebhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxx"
 
 Term.ServerName = GetConvar("sv_hostname", "")
-
-Term.Version = "0.2"
+-- Term.ServerName = "Dev Server"
 
 Term.Color = "^6"
 
 Term.BanReason = "Bye"
 
 Term.DisguisedResource = true
+
+Term.AutoUpdate = true
 
 --//Detections//--
 Term.ResourceStopDetection = true
@@ -284,4 +285,14 @@ Term.ForbiddenCrashes = {
 	'kernelbase.dll+3A799',
 	'ntdll.dll+1E312',
 	'ntdll.dll+FBF18',
+}
+
+
+
+-- New Config Preview
+
+Term.CoolDetection = {
+	Active = true,
+	punishment = "kick",
+	log = true
 }

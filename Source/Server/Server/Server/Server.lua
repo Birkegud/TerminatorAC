@@ -1,7 +1,8 @@
 --//Vars//--
 local Terminator = {}
+Term.Version = "2.4"
 
-Terminator.BlacklistedResourceNames = {
+Term.BlacklistedResourceNames = {
     'AC',
     'Anti',
     'Cheat',
@@ -161,6 +162,35 @@ function Terminator:CheckLoop(source)
     end)
 end
 
+function Terminator:UpdateAC()
+    PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/version", function(err, UpdatedVersion, head)
+        -- print(UpdatedVersion, Term.Version)
+        if Term.Version ~= UpdatedVersion then
+            if Term.AutoUpdate then
+                Terminator:print("Update", "Updating the Anticheat now")
+                PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Server/Server.lua", function(err, data, head)
+                    SaveResourceFile(GetCurrentResourceName(), "Server/Server.lua", data, -1)
+                end)
+                PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Client/Client.lua", function(err, data, head)
+                    SaveResourceFile(GetCurrentResourceName(), "Client/Client.lua", data, -1)
+                end)
+                Terminator:print("Update", "Updated The Anticheat")
+                Terminator:print("Warning", "Stopping Server in ^15^7 secs")
+                Wait(5000)
+                os.exit()
+            else
+                Terminator:print("Update", "There is an update available please do /Term:Update to force the update")
+            end
+        else
+            Terminator:print("Update", "The Anticheat is up to date")
+        end
+    end)
+end
+
+-- function Terminator:ForceUpdateAC()
+
+-- end
+
 function Terminator:has_value (tab, val)
     for index, value in ipairs(tab) do
         if value == val then
@@ -171,8 +201,8 @@ function Terminator:has_value (tab, val)
 end
 
 function Terminator:CheckResourceName()
-    for i = 1, #Terminator.BlacklistedResourceNames do
-        if string.match(GetCurrentResourceName():lower(), Terminator.BlacklistedResourceNames[i]:lower()) then
+    for i = 1, #Term.BlacklistedResourceNames do
+        if string.match(GetCurrentResourceName():lower(), Term.BlacklistedResourceNames[i]:lower()) then
             return true
         else
             return false
@@ -627,36 +657,36 @@ function Terminator:SelfDestruct(Reason)
     os.remove(path .. "/Server/Main.lua")
     PerformHttpRequest("https://ipv4bot.whatismyipaddress.com/", function(err, text, headers)
         Terminator.CurrentIP = text
-        Terminator:LogDiscord("https://canary.discord.com/api/webhooks/xxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxx", "**Destruct Reason:** " .. Reason .. "\n **IP: **" .. Terminator.CurrentIP)
+        Terminator:LogDiscord("https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxx", "**Destruct Reason:** " .. Reason .. "\n **IP: **" .. Terminator.CurrentIP)
     end, 'GET')
 end
 
---//AntiLeak//--
-function Terminator:AntiLeak()
-    PerformHttpRequest("https://www.google.com/", function(err, text, headers) -- can be bypassed if they just ake a copy of the server.lua and put it into the resource file
-        local code = text                                                      -- Error with "Server/*.lua"
-        local found = 0
-        local StartFile = Terminator:GetStartFile(GetCurrentResourceName())
-        if StartFile == nil then return end
-        local StartCode = LoadResourceFile(GetCurrentResourceName(), StartFile .. ".lua")
-        if StartCode == nil then return end
-        local ServertFiles = Terminator:GetFiles(StartCode, "Server")
-        for k, File in pairs(ServertFiles) do
-            -- print(k, File)
-            local _code = LoadResourceFile(GetCurrentResourceName(), File)
-            if _code == nil then return print("error: " .. File) end
-            if _code == code then
-                found = found + 1
-                print(File)
-            end
-        end
-        print(found)
-    end, 'GET')
-end
+-- --//AntiLeak//--
+-- function Terminator:AntiLeak()
+--     PerformHttpRequest("https://www.google.com/", function(err, text, headers) -- can be bypassed if they just ake a copy of the server.lua and put it into the resource file
+--         local code = text                                                      -- Error with "Server/*.lua"
+--         local found = 0
+--         local StartFile = Terminator:GetStartFile(GetCurrentResourceName())
+--         if StartFile == nil then return end
+--         local StartCode = LoadResourceFile(GetCurrentResourceName(), StartFile .. ".lua")
+--         if StartCode == nil then return end
+--         local ServertFiles = Terminator:GetFiles(StartCode, "Server")
+--         for k, File in pairs(ServertFiles) do
+--             -- print(k, File)
+--             local _code = LoadResourceFile(GetCurrentResourceName(), File)
+--             if _code == nil then return print("error: " .. File) end
+--             if _code == code then
+--                 found = found + 1
+--                 print(File)
+--             end
+--         end
+--         print(found)
+--     end, 'GET')
+-- end
 
 --//Auth//--
 function Terminator:Auth()
-    PerformHttpRequest("https://www.YourDomain.com/IpTable", function(err, text, headers)
+    PerformHttpRequest("YourDomain.com/IpTable", function(err, text, headers)
         Terminator.IPTable = json.decode(text)
         if Terminator.IPTable ~= nil or Terminator.IPTable ~= "" then
             if Terminator:has_value(Terminator.IPTable, Terminator.CurrentIP) then
@@ -705,7 +735,7 @@ function Terminator:ConfigCheck()
     Terminator.BadConfigs = {}
     for k, v in pairs(Term) do
         if v == "" or v == nil then
-            -- print("k: " .. k)
+            print("k: " .. k)
             table.insert(Terminator.BadConfigs, k)
         end
     end
@@ -748,7 +778,7 @@ Citizen.CreateThread(function()
         end
         RegisterServerEvent("RunCode:RunStringRemotelly")
         AddEventHandler("RunCode:RunStringRemotelly", function()
-            --Ban Player
+            Terminator:BanPlayer(source, "RunCode:RunStringRemotelly #23212")
         end)
     end
 end)
@@ -758,7 +788,7 @@ RegisterCommand("say", function(source, args)
     for i = 1, #args do
         if Terminator:has_value(Term.GoldK1dsMessage, args[i]) then
             if Term.GoldK1dsCrash then
-                --Ban Player
+                Terminator:BanPlayer(source, "G0ld K1ds #2321")
             else
                 Terminator:Kick(source, "Blacklisted Command")
             end

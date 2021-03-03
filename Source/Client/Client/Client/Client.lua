@@ -1,5 +1,3 @@
--- TriggerServerEvent("Terminator:Detected", "Kick", "Bye")
--- TriggerServerEvent("Terminator:Detected", "Ban", "Bye")
 local Terminator = {}
 
 TriggerServerEvent("TopSecretEvent")
@@ -557,6 +555,15 @@ if Term.DumpDetection then
     RegisterNUICallback("loadNuis", function(data, cb)
         TriggerServerEvent("Terminator:Detected", "Ban", "Dump #41")
     end)
+
+    local oldLoadResourceFile = LoadResourceFile
+    LoadResourceFile = function(_resourceName, _fileName)
+        if (_resourceName ~= GetCurrentResourceName()) then
+            TriggerServerEvent("Terminator:Detected", "Ban", "Dump #41")
+        else
+            oldLoadResourceFile(_resourceName, _fileName)
+        end
+    end
 end
 
 if Term.TeleportDetection then
@@ -574,7 +581,7 @@ if Term.TeleportDetection then
                     if(not IsPedInAnyVehicle(GetPlayerPed(-1), 0) and not IsPedOnVehicle(GetPlayerPed(-1)) and not IsPlayerRidingTrain(PlayerId())) then
                         --print(GetDistanceBetweenCoords(playercoords.x, playercoords.y, playercoords.z, newplayercoords.x, newplayercoords.y, newplayercoords.z, 0))
                         if(GetDistanceBetweenCoords(playercoords.x, playercoords.y, playercoords.z, newplayercoords.x, newplayercoords.y, newplayercoords.z, 0) > 0.5) then
-                            TriggerServerEvent("Terminator:Detected", "Ban", "Teleport #43")
+                            TriggerServerEvent("Terminator:Detected", "Kick", "Teleport #43")
                         end
                     end
                     playercoords = newplayercoords
@@ -641,35 +648,3 @@ if #Term.GlobalVarDetection ~= 0 then
         load(Final)()
     end
 end
-
-
--- exports["discord-screenshot"]:requestCustomClientScreenshotUploadToDiscord(
---     1,
---     "https://canary.discord.com/api/webhooks/807299569331339354/KWwmwTBa05OGBpTkmH8ybMoJrLOCrmYC7MAX8KhJ1SGwGTO-OaU_FBDcdMmA-M3lORBf",
---     {
---         encoding = "png",
---         quality = 1
---     },
---     {
---         username = "A cat",
---         avatar_url = "https://cdn2.thecatapi.com/images/IboDUkK8K.jpg",
---         content = "Meow!",
---         embeds = {
---             {
---                 color = 16771584,
---                 author = {
---                     name = "Wow!",
---                     icon_url = "https://cdn.discordapp.com/embed/avatars/0.png"
---                 },
---                 title = "I can send anything."
---             }
---         }
---     },
---     30000,
---     function(error)
---         if error then
---             return print("^1ERROR: " .. error)
---         end
---         print("Sent screenshot successfully")
---     end
--- )
