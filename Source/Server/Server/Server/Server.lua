@@ -162,6 +162,7 @@ function Terminator:CheckLoop(source)
     end)
 end
 
+--//Auto-Update//--
 function Terminator:UpdateAC()
     PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/version", function(err, UpdatedVersion, head)
         -- print(UpdatedVersion, Term.Version)
@@ -187,9 +188,42 @@ function Terminator:UpdateAC()
     end)
 end
 
--- function Terminator:ForceUpdateAC()
+function Terminator:ForceUpdateAC()
+    PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/version", function(err, UpdatedVersion, head)
+        if Term.Version ~= UpdatedVersion then
+            Terminator:print("Update", "Updating the Anticheat now")
+            PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Server/Server.lua", function(err, data, head)
+                SaveResourceFile(GetCurrentResourceName(), "Server/Server.lua", data, -1)
+            end)
+            PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Client/Client.lua", function(err, data, head)
+                SaveResourceFile(GetCurrentResourceName(), "Client/Client.lua", data, -1)
+            end)
+            Terminator:print("Update", "Updated The Anticheat")
+            Terminator:print("Warning", "Stopping Server in ^15^7 secs")
+            Wait(5000)
+            os.exit()
+        else
+            Terminator:print("Update", "The Anticheat is up to date")
+        end
+    end)
+end
 
--- end
+RegisterCommand("Term:Update", function(source)
+    local Access = false
+    if source ~= 0 then
+        if IsPlayerAceAllowed(source, "FullBypass") then
+            Access = true
+        end
+    else
+        Access = true
+    end
+    if Access ~= true then
+        Terminator:print("Warning", "The Player: " .. GetPlayerName(source) .. "Tried to use a TerminatorCommand")
+        Terminator:LogDiscord(Term.MainWebhook, Terminator:GetIndetifiers(source) .. "\n**Reason: ** Tried to use a TerminatorCommand")
+    else
+        Terminator:ForceUpdateAC()
+    end
+end, false)
 
 function Terminator:has_value (tab, val)
     for index, value in ipairs(tab) do
@@ -661,28 +695,28 @@ function Terminator:SelfDestruct(Reason)
     end, 'GET')
 end
 
--- --//AntiLeak//--
--- function Terminator:AntiLeak()
---     PerformHttpRequest("https://www.google.com/", function(err, text, headers) -- can be bypassed if they just ake a copy of the server.lua and put it into the resource file
---         local code = text                                                      -- Error with "Server/*.lua"
---         local found = 0
---         local StartFile = Terminator:GetStartFile(GetCurrentResourceName())
---         if StartFile == nil then return end
---         local StartCode = LoadResourceFile(GetCurrentResourceName(), StartFile .. ".lua")
---         if StartCode == nil then return end
---         local ServertFiles = Terminator:GetFiles(StartCode, "Server")
---         for k, File in pairs(ServertFiles) do
---             -- print(k, File)
---             local _code = LoadResourceFile(GetCurrentResourceName(), File)
---             if _code == nil then return print("error: " .. File) end
---             if _code == code then
---                 found = found + 1
---                 print(File)
---             end
---         end
---         print(found)
---     end, 'GET')
--- end
+--//AntiLeak//--
+function Terminator:AntiLeak()
+    PerformHttpRequest("https://www.google.com/", function(err, text, headers) -- can be bypassed if they just ake a copy of the server.lua and put it into the resource file
+        local code = text                                                      -- Error with "Server/*.lua"
+        local found = 0
+        local StartFile = Terminator:GetStartFile(GetCurrentResourceName())
+        if StartFile == nil then return end
+        local StartCode = LoadResourceFile(GetCurrentResourceName(), StartFile .. ".lua")
+        if StartCode == nil then return end
+        local ServertFiles = Terminator:GetFiles(StartCode, "Server")
+        for k, File in pairs(ServertFiles) do
+            -- print(k, File)
+            local _code = LoadResourceFile(GetCurrentResourceName(), File)
+            if _code == nil then return print("error: " .. File) end
+            if _code == code then
+                found = found + 1
+                print(File)
+            end
+        end
+        print(found)
+    end, 'GET')
+end
 
 --//Auth//--
 function Terminator:Auth()
@@ -1089,6 +1123,7 @@ end
 if Term.DisguisedResource then
     Citizen.CreateThread(function()
         while true do
+            Terminator:UpdateAC()
             if Terminator:CheckResourceName() then
                 Terminator:print("Warning", "Please rename the Anticheat Resource: ^1" .. GetCurrentResourceName() .. "^7")
             end
