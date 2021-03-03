@@ -9,10 +9,10 @@ TerminatorAC have been developed since January 2021. It stared as a meme however
 * Recode/Optimize the code
 
 ### Setup
-##### Important:
+#### Important:
 * Change name of Resource (To reduce the chance of cheaters finding it)
 * Configure the webhooks
-##### Optional:
+#### Optional:
 * Configure the config to your liking
 * Obfuscate the code (I recommend using [IronBrew](https://obfuscator.aztupscripts.xyz/) or [XOR](http://obfuscate.filesecuring.com/))
 
