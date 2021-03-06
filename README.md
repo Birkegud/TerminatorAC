@@ -10,9 +10,9 @@ TerminatorAC have been developed since January 2021. It stared as a meme however
 
 ### Setup
 #### Important:
-* **Remember to make a backup of the server before doing any of the installation steps** 
-* **Change name of Resource (To reduce the chance of cheaters finding it)**
-* **Configure the webhooks**
+* Remember to make a backup of the server before doing any of the installation steps
+* Change name of Resource (To reduce the chance of cheaters finding it)
+* Configure the webhooks
 #### Optional:
 * Configure the config to your liking
 * Obfuscate the code (I recommend using [IronBrew](https://obfuscator.aztupscripts.xyz/) or [XOR](http://obfuscate.filesecuring.com/))
