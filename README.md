@@ -12,16 +12,20 @@ TerminatorAC have been developed since January 2021. It stared as a meme however
 #### Important:
 * Remember to **make a backup** of the server before doing any of the installation steps
 * Change name of Resource (To reduce the chance of cheaters finding it)
-* Configure the webhooks
+* Configure the webhooks and perms.cfg
+
 #### Optional:
 * Configure the config to your liking
 * Obfuscate the code (I recommend using [IronBrew](https://obfuscator.aztupscripts.xyz/) or [XOR](http://obfuscate.filesecuring.com/))
 
-##### Step By Step:
+##### **Step By Step:**
 ###### Resource Installation:
 * After you have configured the config to your liking. Rename the current resourcename to something like "BetterClouds" (It's very important you choose something that isn't obvious).
 
-###### Installation in every resource:
+###### Perms.cfg:
+* Start out by taking the content of "perms.cfg" and pasting it into the server config (server.cfg). **Remember to modify the resourcename:** ```start Rename_me```
+
+###### Installations Commands:
 * Do ```/Term:Install All``` in the console to install in every resource to prevent any execution.
 * To Uninstall from every resource do ```/Term:Uninstall All```
 
