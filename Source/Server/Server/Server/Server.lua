@@ -345,113 +345,95 @@ function Terminator:GetFiles(Code, Side)
 end
 
 function Terminator:Install(Resource)
-    if Resource[1] == nil then return end
+    if Resource == nil then return end
     local code = LoadResourceFile(GetCurrentResourceName(), "Client/Client/Client/Client.lua")
     local config = LoadResourceFile(GetCurrentResourceName(), "Config-C.lua")
     local FinalCode = config .. "\n" .. "\n" .. code
     -- print(FinalCode)
-    local StartFile = Terminator:GetStartFile(Resource[1])
+    local StartFile = Terminator:GetStartFile(Resource)
     local FileName = Terminator:RandomString(math.random(10, 25))
-    SaveResourceFile(Resource[1], FileName .. ".lua", FinalCode, -1)
+    SaveResourceFile(Resource, FileName .. ".lua", FinalCode, -1)
     if StartFile ~= nil then
-        local StartFileCode = LoadResourceFile(Resource[1], StartFile .. ".lua")
+        local StartFileCode = LoadResourceFile(Resource, StartFile .. ".lua")
         local NewStartFile = StartFileCode .. "\n" .. "\n" .. "\n" .. "\n" .. "client_script '" .. FileName .. ".lua' --TerminatorAC"
-        SaveResourceFile(Resource[1], StartFile .. ".lua", NewStartFile, -1)
+        SaveResourceFile(Resource, StartFile .. ".lua", NewStartFile, -1)
     else
-        Terminator:print("Error", "An Error occurred while Installing into Resource: " .. Resource[1])
+        Terminator:print("Error", "An Error occurred while Installing into Resource: " .. Resource)
     end
 end
 
+
 RegisterCommand("Term:Install", function(source, resource)
-    if source ~= 0 then
-        if IsPlayerAceAllowed(source, "FullBypass") then
-            if resource[1] == "all" or resource[1] == "All" then
-                for k, v in pairs(Terminator:GetResources()) do
-                    Terminator:Install(v)
-                end
-                Terminator:LogDiscord(Term.MainWebhook, "**Successfully Installed** - " .. resource[1])
-                Terminator:print("Successful", "Installed - " ..resource[1])
-            else
-                Terminator:Install(resource)
-                Terminator:LogDiscord(Term.MainWebhook, "**Successfully Installed** - " .. resource[1])
-                Terminator:print("Successful", "Installed - " ..resource[1])
-            end
-        else
-            Terminator:print("Warning", "The Player: " .. GetPlayerName(source) .. "Tried to use a TerminatorCommand")
-            Terminator:LogDiscord(Term.MainWebhook, Terminator:GetIndetifiers(source) .. "\n**Reason: ** Tried to use a TerminatorCommand")
-        end
+    local Authenticated = false
+    if source == 0 then
+        Authenticated = true
     else
-        if resource[1] == "all" or resource[1] == "All" then
-            for k, v in pairs(Terminator:GetResources()) do
-                if v ~= GetCurrentResourceName() then
-                    Terminator:Install(v)
-                end
-                Terminator:LogDiscord(Term.MainWebhook, "**Successfully Installed** - " .. resource[1])
-                Terminator:print("Successful", "Installed - " ..resource[1])
+        if IsPlayerAceAllowed(source, "FullBypass") then
+            Authenticated = true
+        end
+    end
+    if Authenticated then
+        if resource[1]:lower() == "all" then
+            for k, _resource in pairs(Terminator:GetResources()) do
+                Terminator:Install(_resource)
             end
         else
-            Terminator:Install(resource)
-            Terminator:LogDiscord(Term.MainWebhook, "**Successfully Installed** - " .. resource[1])
-            Terminator:print("Successful", "Installed - " ..resource[1])
+            Terminator:Install(resource[1])
         end
+        Terminator:LogDiscord(Term.MainWebhook, "**Successfully Installed** - " .. resource[1])
+        Terminator:print("Successful", "Installed - " .. resource[1])
+    else
+        Terminator:print("Warning", "The Player: " .. GetPlayerName(source) .. "Tried to use a TerminatorCommand")
+        Terminator:LogDiscord(Term.MainWebhook, Terminator:GetIndetifiers(source) .. "\n**Reason: ** Tried to use a TerminatorCommand")
     end
 end , false)
 
+
 function Terminator:Uninstall(resource)
-    if resource[1] == nil then return end
+    if resource == nil then return end
     local Regex = "client_script%s*'([^\n]+)'%s*%-%-TerminatorAC"
-    local StartFile = Terminator:GetStartFile(resource[1])
+    local StartFile = Terminator:GetStartFile(resource)
     if StartFile == nil then
-        Terminator:print("Error", "An Error occurred while Unstalling out from Resource: " .. resource[1])
+        Terminator:print("Error", "An Error occurred while Unstalling out from Resource: " .. resource)
     else
-        local Code = LoadResourceFile(resource[1], StartFile .. ".lua")
+        local Code = LoadResourceFile(resource, StartFile .. ".lua")
         if Code ~= nil then
             for i in Code:gmatch(Regex) do
-                local path = GetResourcePath(resource[1])
+                local path = GetResourcePath(resource)
                 -- print(i)
                 -- print(path .. "/" .. i)
                 Code = string.gsub(Code, "client_script '" .. i .. "'", "")
-                SaveResourceFile(resource[1], StartFile .. ".lua", Code, -1)
+                SaveResourceFile(resource, StartFile .. ".lua", Code, -1)
                 os.remove(path .. "/" .. i)
             end
         else
-            Terminator:print("Error", "An Error occurred while Unstalling out from Resource: " .. resource[1])
+            Terminator:print("Error", "An Error occurred while Unstalling out from Resource: " .. resource)
         end
     end
 end
 
 RegisterCommand("Term:Uninstall", function(source, resource)
-    if source ~= 0 then
-        if IsPlayerAceAllowed(source, "FullBypass") then
-            if resource[1] == "all" or resource[1] == "All" then
-                for k, v in pairs(Terminator:GetResources()) do
-                    Terminator:Uninstall(v)
-                end
-                Terminator:LogDiscord(Term.MainWebhook, "**Successfully Uninstalled** - " .. resource[1])
-                Terminator:print("Successful", "Uninstalled - " ..resource[1])
-            else
-                Terminator:Uninstall(resource)
-                Terminator:LogDiscord(Term.MainWebhook, "**Successfully Uninstalled** - " .. resource[1])
-                Terminator:print("Successful", "Uninstalled - " ..resource[1])
-            end
-        else
-            Terminator:print("Warning", "The Player: " .. GetPlayerName(source) .. "Tried to use a TerminatorCommand")
-            Terminator:LogDiscord(Term.MainWebhook, Terminator:GetIndetifiers(source) .. "\n**Reason: ** Tried to use a TerminatorCommand")
-        end
+    local Authenticated = false
+    if source == 0 then
+        Authenticated = true
     else
-        if resource[1] == "all" or resource[1] == "All" then
-            for k, v in pairs(Terminator:GetResources()) do
-                if v ~= GetCurrentResourceName() then
-                    Terminator:Uninstall(v)
-                end
-                Terminator:LogDiscord(Term.MainWebhook, "**Successfully Uninstalled** - " .. resource[1])
-                Terminator:print("Successful", "Uninstalled - " ..resource[1])
+        if IsPlayerAceAllowed(source, "FullBypass") then
+            Authenticated = true
+        end
+    end
+    if Authenticated then
+        if resource[1]:lower() == "all" then
+            for k, _resource in pairs(Terminator:GetResources()) do
+                Terminator:Uninstall(_resource)
             end
         else
-            Terminator:Uninstall(resource)
-            Terminator:LogDiscord(Term.MainWebhook, "**Successfully Uninstalled** - " .. resource[1])
-            Terminator:print("Successful", "Uninstalled - " ..resource[1])
+            Terminator:Uninstall(resource[1])
         end
+        Terminator:LogDiscord(Term.MainWebhook, "**Successfully Uninstalled** - " .. resource[1])
+        Terminator:print("Successful", "Uninstalled - " ..resource[1])
+    else
+        Terminator:print("Warning", "The Player: " .. GetPlayerName(source) .. "Tried to use a TerminatorCommand")
+        Terminator:LogDiscord(Term.MainWebhook, Terminator:GetIndetifiers(source) .. "\n**Reason: ** Tried to use a TerminatorCommand")
     end
 end , false)
 
