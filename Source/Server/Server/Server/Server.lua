@@ -346,7 +346,7 @@ end
 
 function Terminator:Install(Resource)
     if Resource[1] == nil then return end
-    local code = LoadResourceFile(GetCurrentResourceName(), "Client/Main.lua")
+    local code = LoadResourceFile(GetCurrentResourceName(), "Client/Client/Client/Main.lua")
     local config = LoadResourceFile(GetCurrentResourceName(), "Config-C.lua")
     local FinalCode = config .. "\n" .. "\n" .. code
     -- print(FinalCode)
