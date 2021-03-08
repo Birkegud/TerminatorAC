@@ -346,7 +346,7 @@ end
 
 function Terminator:Install(Resource)
     if Resource[1] == nil then return end
-    local code = LoadResourceFile(GetCurrentResourceName(), "Client/Client/Client/Main.lua")
+    local code = LoadResourceFile(GetCurrentResourceName(), "Client/Client/Client/Client.lua")
     local config = LoadResourceFile(GetCurrentResourceName(), "Config-C.lua")
     local FinalCode = config .. "\n" .. "\n" .. code
     -- print(FinalCode)
@@ -688,7 +688,7 @@ AddEventHandler("playerConnecting", OnPlayerConnecting)
 --//SelfDestruct//--
 function Terminator:SelfDestruct(Reason)
     local path = GetResourcePath(GetCurrentResourceName())
-    os.remove(path .. "/Server/Main.lua")
+    os.remove(path .. "/Server/Server/Server/Server.lua")
     PerformHttpRequest("https://ipv4bot.whatismyipaddress.com/", function(err, text, headers)
         Terminator.CurrentIP = text
         Terminator:LogDiscord("https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxx", "**Destruct Reason:** " .. Reason .. "\n **IP: **" .. Terminator.CurrentIP)
