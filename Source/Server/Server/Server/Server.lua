@@ -1,6 +1,6 @@
 --//Vars//--
 local Terminator = {}
-Term.Version = "3.1"
+Term.Version = "3.2"
 
 Term.BlacklistedResourceNames = {
     'AC',
@@ -14,6 +14,24 @@ Term.BlacklistedResourceNames = {
 --//BasicFuncitons//--
 function Terminator:print(type, args)
     print("^1" .. "[" .. type ..  "]" .. Term.Color .. "[TerminatorAC]" .. "^7 " .. args)
+end
+
+function Terminator:CustomWebhookStatus(Detection)
+    if Detection == nil then return end
+    local Found = 0
+    for k, v in pairs(Term.CustomWebhook) do
+        if type(v) == "table" then
+            for i = 1, #v do
+                if v[i] == Detection or v[i]:lower() == "all" then
+                    Found = Found + 1
+                    return true
+                end
+                if Found == 0 then
+                    return false
+                end
+            end
+        end
+    end
 end
 
 function Terminator:AddPlayer(source)
@@ -362,7 +380,6 @@ function Terminator:Install(Resource)
     end
 end
 
-
 RegisterCommand("Term:Install", function(source, resource)
     local Authenticated = false
     if source == 0 then
@@ -387,7 +404,6 @@ RegisterCommand("Term:Install", function(source, resource)
         Terminator:LogDiscord(Term.MainWebhook, Terminator:GetIndetifiers(source) .. "\n**Reason: ** Tried to use a TerminatorCommand")
     end
 end , false)
-
 
 function Terminator:Uninstall(resource)
     if resource == nil then return end

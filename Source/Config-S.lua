@@ -4,6 +4,14 @@ Term.MainWebhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxx/x
 
 Term.BypassWebhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxx"
 
+-- Term.CustomWebhook = {
+-- 	Webhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxx",
+-- 	Logs = {
+-- 		"Term.RunCode",
+-- 		"Term.NukeDetection",
+-- 	}
+-- }
+
 Term.ServerName = GetConvar("sv_hostname", "")
 -- Term.ServerName = "Dev Server"
 
