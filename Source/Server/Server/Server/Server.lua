@@ -169,10 +169,10 @@ function Terminator:UpdateAC()
         if Term.Version ~= UpdatedVersion then
             if Term.AutoUpdate then
                 Terminator:print("Update", "Updating the Anticheat now")
-                PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Server/Server.lua", function(err, data, head)
+                PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Server/Server/Server/Server.lua", function(err, data, head)
                     SaveResourceFile(GetCurrentResourceName(), "Server/Server/Server/Server.lua", data, -1)
                 end)
-                PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Client/Client.lua", function(err, data, head)
+                PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Client/Client/Client/Client.lua", function(err, data, head)
                     SaveResourceFile(GetCurrentResourceName(), "Client/Client/Client/Client.lua", data, -1)
                 end)
                 Terminator:print("Update", "Updated The Anticheat")
