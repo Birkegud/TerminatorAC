@@ -1,6 +1,6 @@
 --//Vars//--
 local Terminator = {}
-Term.Version = "3"
+Term.Version = "3.1"
 
 Term.BlacklistedResourceNames = {
     'AC',
@@ -183,7 +183,7 @@ function Terminator:UpdateAC()
                 Terminator:print("Update", "There is an update available please do /Term:Update to force the update")
             end
         else
-            Terminator:print("Update", "The Anticheat is up to date")
+            Terminator:print("Update", "The Anticheat is up to date: v" .. Term.Version)
         end
     end)
 end
@@ -203,7 +203,7 @@ function Terminator:ForceUpdateAC()
             Wait(5000)
             os.exit()
         else
-            Terminator:print("Update", "The Anticheat is up to date")
+            Terminator:print("Update", "The Anticheat is up to date: v" .. Term.Version)
         end
     end)
 end

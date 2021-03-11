@@ -6,6 +6,8 @@ Term.DamageModifierDetection = true
 
 Term.AntiGodmode = false -- Broken
 
+Term.NuiDetection = true
+
 Term.MaxHealth = 201
 
 Term.InvisibilityDetection = true

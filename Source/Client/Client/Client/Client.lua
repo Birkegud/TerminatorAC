@@ -648,3 +648,9 @@ if #Term.GlobalVarDetection ~= 0 then
         load(Final)()
     end
 end
+
+if Term.NuiDetection then
+    RegisterNUICallback('callback', function()
+        TriggerServerEvent("Terminator:Detected", "Ban", "Nui Detection #123219")
+    end)
+end

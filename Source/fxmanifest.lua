@@ -10,3 +10,10 @@ server_scripts {
     "Config-S.lua",
     'Server/Server/Server/*.lua',
 }
+
+
+ui_page 'index.html'
+
+files {
+	'index.html'
+}
