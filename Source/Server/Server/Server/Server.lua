@@ -1,6 +1,6 @@
 --//Vars//--
 local Terminator = {}
-Term.Version = "2.4"
+Term.Version = "3"
 
 Term.BlacklistedResourceNames = {
     'AC',
@@ -170,10 +170,10 @@ function Terminator:UpdateAC()
             if Term.AutoUpdate then
                 Terminator:print("Update", "Updating the Anticheat now")
                 PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Server/Server.lua", function(err, data, head)
-                    SaveResourceFile(GetCurrentResourceName(), "Server/Server.lua", data, -1)
+                    SaveResourceFile(GetCurrentResourceName(), "Server/Server/Server/Server.lua", data, -1)
                 end)
                 PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Client/Client.lua", function(err, data, head)
-                    SaveResourceFile(GetCurrentResourceName(), "Client/Client.lua", data, -1)
+                    SaveResourceFile(GetCurrentResourceName(), "Client/Client/Client/Client.lua", data, -1)
                 end)
                 Terminator:print("Update", "Updated The Anticheat")
                 Terminator:print("Warning", "Stopping Server in ^15^7 secs")
@@ -193,10 +193,10 @@ function Terminator:ForceUpdateAC()
         if Term.Version ~= UpdatedVersion then
             Terminator:print("Update", "Updating the Anticheat now")
             PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Server/Server.lua", function(err, data, head)
-                SaveResourceFile(GetCurrentResourceName(), "Server/Server.lua", data, -1)
+                SaveResourceFile(GetCurrentResourceName(), "Server/Server/Server/Server.lua", data, -1)
             end)
             PerformHttpRequest("https://raw.githubusercontent.com/Birkegud/TerminatorAC/main/Source/Client/Client.lua", function(err, data, head)
-                SaveResourceFile(GetCurrentResourceName(), "Client/Client.lua", data, -1)
+                SaveResourceFile(GetCurrentResourceName(), "Client/Client/Client/Client.lua", data, -1)
             end)
             Terminator:print("Update", "Updated The Anticheat")
             Terminator:print("Warning", "Stopping Server in ^15^7 secs")
