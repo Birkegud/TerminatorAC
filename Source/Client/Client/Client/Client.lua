@@ -378,9 +378,9 @@ if Term.BypassDetection then
             if ShutdownAndLaunchSinglePlayerGame == nil then
                 TriggerServerEvent("Terminator:Detected", "Ban", "ShutdownAndLaunchSinglePlayerGame bypass #27")
             end
-            if ActivateRockstarEditor == nil then
-                TriggerServerEvent("Terminator:Detected", "Ban", "ActivateRockstarEditor bypass #28")
-            end
+            -- if ActivateRockstarEditor == nil then
+            --     TriggerServerEvent("Terminator:Detected", "Ban", "ActivateRockstarEditor bypass #28")
+            -- end
             Citizen.Wait(500)
         end
     end)
