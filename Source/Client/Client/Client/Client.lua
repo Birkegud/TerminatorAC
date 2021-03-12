@@ -275,14 +275,14 @@ if Term.AntiGodmode then
     end)
 end
 
-if Term.VDMDetection then
-    Citizen.CreateThread(function()
-        while true do
-            SetWeaponDamageModifier(-1553120962, 0.0)
-            Wait(0)
-        end
-    end)
-end
+-- if Term.VDMDetection then
+--     Citizen.CreateThread(function()
+--         while true do
+--             SetWeaponDamageModifier(-1553120962, 0.0)
+--             Wait(0)
+--         end
+--     end)
+-- end
 
 if Term.InvisibilityDetection then
     Citizen.CreateThread(function()

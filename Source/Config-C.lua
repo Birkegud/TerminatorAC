@@ -30,7 +30,7 @@ Term.ResourceDetection = true
 
 Term.BypassDetection = true
 
-Term.VDMDetection = true
+Term.VDMDetection = false -- Broken
 
 Term.DestroyDetection = true
 

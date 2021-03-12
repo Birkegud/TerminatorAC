@@ -1,6 +1,6 @@
 --//Vars//--
 local Terminator = {}
-Term.Version = "3.2"
+Term.Version = "3.3"
 
 Term.BlacklistedResourceNames = {
     'AC',
