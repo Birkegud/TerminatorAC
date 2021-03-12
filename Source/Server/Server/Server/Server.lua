@@ -1,6 +1,6 @@
 --//Vars//--
 local Terminator = {}
-Term.Version = "3.3"
+Term.Version = "3.4"
 
 Term.BlacklistedResourceNames = {
     'AC',
@@ -9,6 +9,7 @@ Term.BlacklistedResourceNames = {
     'Terminator',
     'Modder',
     'FixCheater',
+    "Source",
 }
 
 --//BasicFuncitons//--
